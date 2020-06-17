@@ -1,0 +1,241 @@
+<section id="page-title-area" class="section-padding overlay">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>Ajouter Votre Voiture</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>Contactez AZZDOU car le Leader de location voiture au Maroc</p>
+                </div>
+            </div>
+            <!-- Page Title End -->
+        </div>
+    </div>
+</section>
+<!--== Page Title Area End ==-->
+
+<div class="row dflex justify-content-center">
+    <ul class="nav nav-tabs tabs">
+        <li class="active"><a data-toggle="tab" href="#voiture">Ajouter une Voiture</a></li>
+        <li><a data-toggle="tab" href="#marque">Ajouter une Marque</a></li>
+      </ul>
+</div>
+  
+  <div class="tab-content">
+    <div id="voiture" class="tab-pane fade in active">
+        <br>
+      <h3 class="text-center">Ajouter une voiture</h3>
+      
+      <div class="contact-page-wrao section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="contact-form">
+                        <p *ngIf="voitSubmitted">
+                                ThatsGOood
+                        </p>
+                        <br>
+                        <form action="index.html" (ngSubmit)="VoitSubmit()">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="marque-input">
+                                        <!-- InTERACTIVE AVEC LA BDD -->
+                                        <label for="">La marque de la Voiture</label>
+                                        <select class="custom-select"  name="marqueVoit" [(ngModel)]="voiture.marque" required>
+                                            <option  [ngValue]="marque.marque + '/' + marque.sousMarque" *ngFor="let marque of marques" >{{marque.marque}}  / {{marque.sousMarque}}</option>
+                                            
+                                          </select>
+                                          
+                                          
+                                    </div>
+                                </div>
+                                    
+                                <div class="col-lg-6 col-md-6">
+                                    <label for="">Type de la Voiture</label>
+                                     <select class="custom-select" name="typeVoit" [(ngModel)]="voiture.type" required>
+                                        <option value="Sport">Sport</option>
+                                        <option value="Grande">4*4</option>
+                                        <option value="Petite">Petite</option>
+                                      </select>
+                                </div>
+                            </div>
+    <br>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="name-input">
+                                        <label for="">Image de Voiture</label>
+                                        <input type="file" 
+                                         name="imageVoit" 
+                                        [(ngModel)]="voiture.image" 
+                                        accept="image/*"
+                                        required
+                                        (change)="changeFile($event)">
+                                    </div>
+                                </div>
+                                    
+                                <div class="col-lg-6 col-md-6">
+                                    <label for="">Type de Carburant</label>
+                                     <select class="custom-select" name="carburantVoit" [(ngModel)]="voiture.carburant" required>
+                                        <option value="Diesel">Diesel</option>
+                                        <option value="Essence">Essence</option>
+                                      </select>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                              
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="subject-input"></div>
+                                    <label for="">Boite de Vitesse</label>
+                                        <select class="custom-select"  name="modeVoit" [(ngModel)]="voiture.mode" required>
+                                            <option value="Manuelle">Manuelle</option>
+                                            <option value="Automatique">Automatique</option>
+                                          </select>
+                                    
+                                    
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="subject-input">
+                                        <label for="">Model de la Voiture</label>
+                                        <input type="number" placeholder="YYYY" min="2010" max="2022" name="modelVoit" required [(ngModel)]="voiture.model">
+                                    </div>
+                                </div>
+                            </div>
+    
+                           <br>
+    
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="prix-input">
+                                        <label for="">Prix par Jour</label>
+                                        <input type="number" placeholder="Prix / jour" name="prixVoit" required [(ngModel)]="voiture.prix"> 
+                                    </div>
+                                </div>
+                                    
+                                <div class="col-lg-6 col-md-6">
+                                    <label for="">La Gamme</label>
+                                     <select class="custom-select" name="gammeVoit" required [(ngModel)]="voiture.gamme">
+                                        <option value="Toutes Options">Toutes options</option>
+                                        <option value="Moyenne">Moyenne</option>
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="input-submit">
+                                <button type="submit">Ajouter La voiture</button>
+                            </div>
+                        </form>
+                    </div>
+                    <br><br>
+
+                    <table class="table" >
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Marque</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">image</th>
+                            <th scope="col">Action</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr  *ngFor="let voiture of voitures">
+                              
+                            <td>{{voiture.marque}}</td>
+                            <td>{{voiture.model}}</td>
+                            <td>
+                                <img [src]="voiture.image" alt="" style="height: 60px; border-radius: 20%;">
+                            </td>
+                            <td><button class="btn btn-danger" (click)="deleteVoit(voiture.key)">Effacer </button></td>
+                          </tr>
+                       <tr>
+                           <td>
+                               <button class="btn btn-danger" (click)="deleteAllVoit()">Effacer Tout</button>
+                           </td>
+
+                       </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+    </div>
+    <div id="marque" class="tab-pane fade">
+        <br>
+      <h3 class="text-center">Ajouter une Marque</h3>
+      
+
+      <div class="contact-page-wrao section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="contact-form">
+                        <form action="index.html" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="marque-input">
+                                        <input type="text" placeholder="La marque" name="marque" required [(ngModel)]="marque.marque">
+                                    </div>
+                                </div>
+                                    
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="sousMarque-input">
+                                        <input type="text" placeholder="Sous Marque" name="sousMarque "required [(ngModel)]="marque.sousMarque">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-submit">
+                                <button type="submit">Ajouter La Marque</button>
+                            </div>
+                        </form>
+                        <div [hidden]="!submitted">
+                            <p style="color:blueviolet;">You submitted successfully!</p>
+                            
+                          </div>
+                    </div>
+                    <br>
+        
+                    <br>         
+                    <h3>Vos Marques</h3>
+                    <br>
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Marque</th>
+                            <th scope="col">Sous Marque</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr  *ngFor="let marque of marques">
+                              
+                            <td>{{marque.marque}}</td>
+                            <td>{{marque.sousMarque}}</td>
+                            <td><button class="btn btn-danger" (click)="deleteMarque(marque.key)">Effacer </button></td>
+                          </tr>
+                       <tr>
+                           <td>
+                               <button class="btn btn-danger" (click)="deleteAll()">Effacer Tout</button>
+                           </td>
+
+                       </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+  </div>
+
+<!--== Contact Page Area Start ==-->
